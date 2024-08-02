@@ -32,7 +32,7 @@
 
   2. **Instale as dependências**
 
-    ```bash
+  ```bash
     Copiar código
     npm install
     Configure o backend conforme necessário
