@@ -32,15 +32,11 @@
 
   2. **Instale as dependências**
 
-  
-    Copiar código
     npm install
     Configure o backend conforme necessário
 
   3. **Execute o aplicativo**
 
-    
-    Copiar código
     expo start
 
 
