@@ -32,14 +32,14 @@
 
   2. **Instale as dependências**
 
-  ```bash
+  
     Copiar código
     npm install
     Configure o backend conforme necessário
 
   3. **Execute o aplicativo**
 
-    ```bash
+    
     Copiar código
     expo start
 
