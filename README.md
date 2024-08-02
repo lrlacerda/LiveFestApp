@@ -30,30 +30,44 @@
    git clone https://github.com/seu-usuario/livefestapp.git
    cd livefestapp
 
+  2. **Instale as dependências:**
+
+    ```bash
+Copiar código
+npm install
+Configure o backend conforme necessário
+
+  3. **Execute o aplicativo:**
+
+    ```bash
+Copiar código
+expo start
 
 
-Estrutura do Projeto
-Páginas Principais:
+## Estrutura do Projeto
+**Páginas Principais:**
 
-Home
-Login
-RegistrationSuccessful
-PasswordRecover
-DetailedCard
-MapNearby
-Categories
-Entre outros...
-Bibliotecas Usadas:
+- Home
+- Login
+- RegistrationSuccessful
+- PasswordRecover
+- DetailedCard
+- MapNearby
+- Categories
+- Entre outros...
+  
+  ## Bibliotecas Usadas:
 
-expo-camera
-expo-location
-react-native-maps
-styled-components
-Contribuindo
+- camera
+- expo-location
+- react-native-maps
+- styled-components
+- Contribuindo
+
 Se você deseja contribuir para o LiveFestApp, fique à vontade para abrir uma issue ou enviar um pull request. Suas contribuições são bem-vindas!
 
-Licença
+## Licença
 Este projeto está licenciado sob a Licença MIT.
 
-Contato
-Para dúvidas ou mais informações, entre em contato com seu-email@dominio.com.
+## Contato
+Para dúvidas ou mais informações, entre em contato com lribeirolacerda@gmail.com.
