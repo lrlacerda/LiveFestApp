@@ -30,18 +30,18 @@
    git clone https://github.com/seu-usuario/livefestapp.git
    cd livefestapp
 
-  2. **Instale as dependências:**
+  2. **Instale as dependências**
 
     ```bash
-Copiar código
-npm install
-Configure o backend conforme necessário
+    Copiar código
+    npm install
+    Configure o backend conforme necessário
 
-  3. **Execute o aplicativo:**
+  3. **Execute o aplicativo**
 
     ```bash
-Copiar código
-expo start
+    Copiar código
+    expo start
 
 
 ## Estrutura do Projeto
