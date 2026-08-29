@@ -1,69 +1,108 @@
-# LiveFestApp
+# 🎉 LiveFestApp
 
-**LiveFestApp** é um aplicativo desenvolvido em React Native para ajudar os usuários a encontrar e explorar eventos locais. O aplicativo integra um mapa do Google para localização dos eventos e oferece uma visão detalhada de cada evento, além de permitir a navegação por categorias e a gestão de eventos favoritos.
+**LiveFestApp** é uma aplicação full stack para descoberta de eventos locais (shows, festas, festivais). O projeto é composto por um app mobile em **React Native (Expo)** e uma **API REST em ASP.NET Core (.NET 8)** com banco de dados SQL Server, responsável por autenticação, cadastro de eventos, categorias, avaliações e favoritos.
+
+O repositório contém dois projetos independentes:
+
+```
+LiveFestApp/
+├── LiveFest/    # App mobile (React Native + Expo)
+└── WebAPI/      # API REST (ASP.NET Core)
+```
 
 ## Funcionalidades
 
-- **Busca de Eventos Próximos**: Localize eventos perto de você.
-- **Mapa do Google**: Visualize eventos em um mapa interativo.
-- **Categorias de Eventos**: Explore eventos filtrados por categorias.
-- **Detalhes do Evento**: Acesse informações completas sobre cada evento.
-- **Favoritos**: Marque eventos como favoritos para fácil acesso.
-- **Autenticação**: Crie uma conta, faça login e recupere sua senha.
+- **Descoberta de eventos**: listagem de eventos próximos, com busca e navegação por categorias.
+- **Mapa interativo**: visualização dos eventos no mapa (Google Maps) e traçado de rota até o local.
+- **Detalhes do evento**: página com informações completas de cada evento.
+- **Favoritos**: marcar/desmarcar eventos como favoritos.
+- **Avaliações**: cadastro de avaliações vinculadas a um evento.
+- **Autenticação de usuário**: criação de conta, login (JWT), verificação por código e recuperação de senha por e-mail.
+- **Cadastro de eventos**: criação de eventos com upload de imagem para o Azure Blob Storage.
 
 ## Tecnologias
 
-- **Frontend**: React Native
-- **Backend**: C# com SQL Server
-- **Bibliotecas**:
-  - `expo`: ~51.0.1
-  - `react-native-maps`: 1.14.0
-  - `axios`: ^1.7.2
-  - `react-navigation`: ^6.1.9
-  - E outras...
+### App mobile (`LiveFest/`)
 
-## Instalação
+| Tecnologia | Uso |
+|---|---|
+| React Native + Expo (`~51`) | Base do app mobile |
+| React Navigation (bottom-tabs + native-stack) | Navegação entre telas |
+| `react-native-maps` / `react-native-maps-directions` | Mapa e rotas |
+| `axios` | Consumo da API |
+| `expo-location`, `expo-camera`, `expo-image-picker` | Localização, câmera e seleção de imagens |
+| `jwt-decode` | Leitura do token de autenticação |
+| `styled-components` | Estilização dos componentes |
+| TypeScript | Tipagem (parcial) |
 
-1. **Clone o Repositório**
+### API (`WebAPI/`)
 
-   ```bash
-   git clone https://github.com/seu-usuario/livefestapp.git
-   cd livefestapp
+| Tecnologia | Uso |
+|---|---|
+| ASP.NET Core (.NET 8) | Framework da API |
+| Entity Framework Core + SQL Server | Persistência de dados e migrations |
+| JWT Bearer Authentication | Autenticação |
+| BCrypt.Net-Next | Hash de senhas |
+| MailKit / MimeKit | Envio de e-mails (verificação e recuperação de senha) |
+| Azure.Storage.Blobs | Upload de imagens dos eventos |
+| Swashbuckle (Swagger) | Documentação/exploração da API |
 
-  2. **Instale as dependências**
+## Estrutura do projeto
 
-    npm install
-    Configure o backend conforme necessário
+**App mobile — telas principais (`LiveFest/src/screens`):**
+Home, Login, CreateAccount, EmailVerification, VerificationCode, PasswordRecover, PasswordReset, RegistrationSuccessful, Main, Categories, SelectedCategory, DetailedCard, MapNearby, Favorites, Splash, Onboarding.
 
-  3. **Execute o aplicativo**
+**API — controllers (`WebAPI/LiveFest/Controllers`):**
+`EventsController`, `CategoriesController`, `AddressController`, `EvaluationsController`, `SaveEventsController`, `UsersController`, `LoginController`, `RecoveryPasswordController`, `SendEmailController`.
 
-    expo start
+## Principais endpoints da API
 
+| Recurso | Endpoint | Descrição |
+|---|---|---|
+| Eventos | `POST /api/Events` | Cria um evento (com upload de imagem) |
+| | `GET /api/Events` | Lista todos os eventos |
+| | `GET /api/Events/GetById` | Busca evento por id |
+| | `GET /api/Events/GetByCategory` | Lista eventos por categoria |
+| | `DELETE /api/Events/{id}` | Remove um evento |
+| Categorias | `POST /api/Categories`, `GET /api/Categories`, `GET /api/Categories/GetById` | CRUD básico de categorias |
+| Endereços | `POST /api/Address`, `GET /api/Address`, `GET /api/Address/GetById` | CRUD básico de endereços |
+| Avaliações | `POST /api/Evaluations`, `GET /api/Evaluations/GetById`, `GET /api/Evaluations/GetByEvent` | Avaliações de eventos |
+| Favoritos | `GET /api/SaveEvents/All`, `POST /api/SaveEvents/Create`, `DELETE /api/SaveEvents/Delete` | Gerenciar eventos favoritos |
+| Usuários | `POST /api/Users`, `GET /api/Users/GetById`, `PUT /api/Users/UpdatePassword` | Cadastro e atualização de usuário |
+| Login | `POST /api/Login` | Autenticação (JWT) |
+| Recuperação de senha | `POST /api/RecoveryPassword`, `POST /api/RecoveryPassword/RecoveryPassword` | Fluxo de recuperação de senha |
+| E-mail | `POST /api/SendEmail` | Envio de e-mails transacionais |
 
-## Estrutura do Projeto
-**Páginas Principais:**
+## Como executar
 
-- Home
-- Login
-- RegistrationSuccessful
-- PasswordRecover
-- DetailedCard
-- MapNearby
-- Categories
-- Entre outros...
-  
-  ## Bibliotecas Usadas:
+### Pré-requisitos
 
-- camera
-- expo-location
-- react-native-maps
-- styled-components
-- Contribuindo
+- Node.js e npm
+- [Expo CLI](https://docs.expo.dev/) (`npx expo`)
+- .NET 8 SDK
+- SQL Server (local ou remoto)
 
-Se você deseja contribuir para o LiveFestApp, fique à vontade para abrir uma issue ou enviar um pull request. Suas contribuições são bem-vindas!
+### App mobile
 
-## Licença
-Este projeto está licenciado sob a Licença MIT.
+```bash
+cd LiveFest
+npm install
+npm start        # ou: npx expo start
+```
+
+Outros scripts disponíveis: `npm run android`, `npm run ios`, `npm run web`.
+
+### API
+
+```bash
+cd WebAPI/LiveFest
+dotnet restore
+dotnet ef database update   # aplica as migrations no SQL Server
+dotnet run
+```
+
+Configure a connection string do SQL Server, as credenciais de e-mail (MailKit) e as chaves do Azure Blob Storage em `appsettings.json` / `appsettings.Development.json` antes de subir a API. A URL base consumida pelo app mobile é definida em `LiveFest/src/service/service.js`.
 
 ## Contato
-Para dúvidas ou mais informações, entre em contato com lribeirolacerda@gmail.com.
+
+Dúvidas ou sugestões: lribeirolacerda@gmail.com
